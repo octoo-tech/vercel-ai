@@ -91,12 +91,48 @@
 @theme {
   --font-sans: var(--font-geist);
   --font-mono: var(--font-geist-mono);
+  --font-playfair: "Playfair Display SC", serif;
+  --font-noto-mono: "Noto Sans Mono", monospace;
 
   --breakpoint-toast-mobile: 600px;
 
   --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-md: calc(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  /* Octoo Theme Colors */
+  --color-octoo-primary-50: 255 251 243;
+  --color-octoo-primary-100: 255 250 239;
+  --color-octoo-primary-200: 255 249 235;
+  --color-octoo-primary-300: 255 245 222;
+  --color-octoo-primary-400: 255 237 198;
+  --color-octoo-primary-500: 255 229 173;
+  --color-octoo-primary-600: 230 206 156;
+  --color-octoo-primary-700: 191 172 130;
+  --color-octoo-primary-800: 153 137 104;
+  --color-octoo-primary-900: 125 112 85;
+
+  --color-octoo-secondary-50: 229 227 251;
+  --color-octoo-secondary-100: 220 218 250;
+  --color-octoo-secondary-200: 211 209 249;
+  --color-octoo-secondary-300: 185 181 245;
+  --color-octoo-secondary-400: 132 126 237;
+  --color-octoo-secondary-500: 79 70 229;
+  --color-octoo-secondary-600: 71 63 206;
+  --color-octoo-secondary-700: 59 53 172;
+  --color-octoo-secondary-800: 47 42 137;
+  --color-octoo-secondary-900: 39 34 112;
+
+  --color-octoo-tertiary-50: 219 242 252;
+  --color-octoo-tertiary-100: 207 237 251;
+  --color-octoo-tertiary-200: 195 233 250;
+  --color-octoo-tertiary-300: 159 219 246;
+  --color-octoo-tertiary-400: 86 192 240;
+  --color-octoo-tertiary-500: 14 165 233;
+  --color-octoo-tertiary-600: 13 149 210;
+  --color-octoo-tertiary-700: 11 124 175;
+  --color-octoo-tertiary-800: 8 99 140;
+  --color-octoo-tertiary-900: 7 81 114;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
