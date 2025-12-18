@@ -10,6 +10,7 @@ import {
   gte,
   inArray,
   lt,
+  sql,
   type SQL,
 } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
@@ -558,9 +559,19 @@ export async function createStreamId({
   chatId: string;
 }) {
   try {
+    const now = new Date();
+    const expiresAt = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24 hours from now
     await db
       .insert(stream)
-      .values({ id: streamId, chatId, createdAt: new Date() });
+      .values({
+        id: streamId,
+        chatId,
+        createdAt: now,
+        chunks: [],
+        status: "active",
+        expiresAt,
+        lastChunkAt: null,
+      });
   } catch (_error) {
     throw new ChatSDKError(
       "bad_request:database",
@@ -583,6 +594,81 @@ export async function getStreamIdsByChatId({ chatId }: { chatId: string }) {
     throw new ChatSDKError(
       "bad_request:database",
       "Failed to get stream ids by chat id"
+    );
+  }
+}
+
+export async function appendStreamChunk({
+  streamId,
+  chunk,
+}: {
+  streamId: string;
+  chunk: string;
+}) {
+  try {
+    await db
+      .update(stream)
+      .set({
+        chunks: sql`${stream.chunks} || ${JSON.stringify([chunk])}::jsonb`,
+        lastChunkAt: new Date(),
+      })
+      .where(eq(stream.id, streamId));
+  } catch (_error) {
+    throw new ChatSDKError(
+      "bad_request:database",
+      "Failed to append stream chunk"
+    );
+  }
+}
+
+export async function getStreamState({ streamId }: { streamId: string }) {
+  try {
+    const result = await db
+      .select({
+        chunks: stream.chunks,
+        status: stream.status,
+        chatId: stream.chatId,
+      })
+      .from(stream)
+      .where(eq(stream.id, streamId))
+      .execute();
+
+    return result[0] || null;
+  } catch (_error) {
+    throw new ChatSDKError(
+      "bad_request:database",
+      "Failed to get stream state"
+    );
+  }
+}
+
+export async function completeStream({ streamId }: { streamId: string }) {
+  try {
+    await db
+      .update(stream)
+      .set({ status: "completed" })
+      .where(eq(stream.id, streamId));
+  } catch (_error) {
+    throw new ChatSDKError(
+      "bad_request:database",
+      "Failed to complete stream"
+    );
+  }
+}
+
+export async function cleanupExpiredStreams() {
+  try {
+    const now = new Date();
+    const result = await db
+      .delete(stream)
+      .where(lt(stream.expiresAt, now))
+      .execute();
+
+    return result;
+  } catch (_error) {
+    throw new ChatSDKError(
+      "bad_request:database",
+      "Failed to cleanup expired streams"
     );
   }
 }

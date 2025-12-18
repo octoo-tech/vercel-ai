@@ -8,8 +8,8 @@ import {
 } from "@/lib/db/queries";
 import type { Chat } from "@/lib/db/schema";
 import { ChatSDKError } from "@/lib/errors";
+import { createPostgresStreamContext } from "@/lib/stream-context";
 import type { ChatMessage } from "@/lib/types";
-import { getStreamContext } from "../../route";
 
 export async function GET(
   _: Request,
@@ -17,12 +17,8 @@ export async function GET(
 ) {
   const { id: chatId } = await params;
 
-  const streamContext = getStreamContext();
+  const streamContext = createPostgresStreamContext();
   const resumeRequestedAt = new Date();
-
-  if (!streamContext) {
-    return new Response(null, { status: 204 });
-  }
 
   if (!chatId) {
     return new ChatSDKError("bad_request:api").toResponse();

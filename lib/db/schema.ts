@@ -157,6 +157,10 @@ export const stream = pgTable(
     id: uuid("id").notNull().defaultRandom(),
     chatId: uuid("chatId").notNull(),
     createdAt: timestamp("createdAt").notNull(),
+    chunks: json("chunks").$type<string[]>().default([]).notNull(),
+    status: varchar("status", { length: 20 }).default("active").notNull(),
+    expiresAt: timestamp("expiresAt").notNull(),
+    lastChunkAt: timestamp("lastChunkAt"),
   },
   (table) => ({
     pk: primaryKey({ columns: [table.id] }),
