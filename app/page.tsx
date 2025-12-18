@@ -1,9 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { OctopusLogo } from "@/components/octopus-logo";
 import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/contact-form";
 
 export default function LandingPage() {
+  const [contactOpen, setContactOpen] = useState(false);
+
   return (
     <div className="flex flex-col h-screen">
       {/* Header */}
@@ -19,7 +25,11 @@ export default function LandingPage() {
             />
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setContactOpen(true)}
+            >
               Contact
             </Button>
             <Button asChild variant="ghost" size="sm">
@@ -28,6 +38,9 @@ export default function LandingPage() {
           </div>
         </div>
       </header>
+
+      {/* Contact Form Dialog */}
+      <ContactForm open={contactOpen} onOpenChange={setContactOpen} />
 
       {/* Main Content */}
       <main className="flex-auto overflow-x-hidden">
