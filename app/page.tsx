@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { OctopusLogo } from "@/components/octopus-logo";
@@ -16,12 +15,10 @@ export default function LandingPage() {
       <header className="flex-none z-10">
         <div className="flex items-center justify-between gap-4 bg-surface-100 p-4">
           <div className="flex items-center">
-            <Image
+            <img
               src="/octo-o.png"
               alt="OCTOO"
-              width={150}
-              height={39}
-              className="uppercase"
+              className="h-8 w-auto uppercase"
             />
           </div>
           <div className="flex items-center gap-4">
