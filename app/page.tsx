@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { OctopusLogo } from "@/components/octopus-logo";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/contact-form";
 
 export default function LandingPage() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <div className="flex flex-col h-screen">
@@ -82,7 +87,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="flex-none">
         <div className="space-y-10 text-center flex flex-col items-center p-4">
-          <p className="font-mono text-sm">© OCTOO, {new Date().getFullYear()}</p>
+          <p className="font-mono text-sm">© OCTOO{year ? `, ${year}` : ""}</p>
         </div>
       </footer>
     </div>
