@@ -119,7 +119,7 @@ type WeatherAtLocation = {
   };
 };
 
-const SAMPLE = {
+const SAMPLE: WeatherAtLocation = {
   latitude: 37.763_283,
   longitude: -122.412_86,
   generationtime_ms: 0.027_894_973_754_882_812,
@@ -127,6 +127,7 @@ const SAMPLE = {
   timezone: "GMT",
   timezone_abbreviation: "GMT",
   elevation: 18,
+  cityName: "San Francisco",
   current_units: { time: "iso8601", interval: "seconds", temperature_2m: "°C" },
   current: { time: "2024-10-07T19:30", interval: 900, temperature_2m: 29.3 },
   hourly_units: { time: "iso8601", temperature_2m: "°C" },
@@ -279,20 +280,22 @@ function n(num: number): number {
 }
 
 export function Weather({
-  weatherAtLocation = SAMPLE,
+  weatherAtLocation,
 }: {
   weatherAtLocation?: WeatherAtLocation;
 }) {
+  const data = weatherAtLocation?.hourly?.temperature_2m ? weatherAtLocation : SAMPLE;
+
   const currentHigh = Math.max(
-    ...weatherAtLocation.hourly.temperature_2m.slice(0, 24)
+    ...data.hourly.temperature_2m.slice(0, 24)
   );
   const currentLow = Math.min(
-    ...weatherAtLocation.hourly.temperature_2m.slice(0, 24)
+    ...data.hourly.temperature_2m.slice(0, 24)
   );
 
-  const isDay = isWithinInterval(new Date(weatherAtLocation.current.time), {
-    start: new Date(weatherAtLocation.daily.sunrise[0]),
-    end: new Date(weatherAtLocation.daily.sunset[0]),
+  const isDay = isWithinInterval(new Date(data.current.time), {
+    start: new Date(data.daily.sunrise[0]),
+    end: new Date(data.daily.sunset[0]),
   });
 
   const [isMobile, setIsMobile] = useState(false);
@@ -310,22 +313,22 @@ export function Weather({
 
   const hoursToShow = isMobile ? 5 : 6;
 
-  const currentTimeIndex = weatherAtLocation.hourly.time.findIndex(
-    (time) => new Date(time) >= new Date(weatherAtLocation.current.time)
+  const currentTimeIndex = data.hourly.time.findIndex(
+    (time) => new Date(time) >= new Date(data.current.time)
   );
 
-  const displayTimes = weatherAtLocation.hourly.time.slice(
+  const displayTimes = data.hourly.time.slice(
     currentTimeIndex,
     currentTimeIndex + hoursToShow
   );
-  const displayTemperatures = weatherAtLocation.hourly.temperature_2m.slice(
+  const displayTemperatures = data.hourly.temperature_2m.slice(
     currentTimeIndex,
     currentTimeIndex + hoursToShow
   );
 
   const location =
-    weatherAtLocation.cityName ||
-    `${weatherAtLocation.latitude?.toFixed(1)}°, ${weatherAtLocation.longitude?.toFixed(1)}°`;
+    data.cityName ||
+    `${data.latitude?.toFixed(1)}°, ${data.longitude?.toFixed(1)}°`;
 
   return (
     <div
@@ -346,7 +349,7 @@ export function Weather({
         <div className="mb-2 flex items-center justify-between">
           <div className="font-medium text-white/80 text-xs">{location}</div>
           <div className="text-white/60 text-xs">
-            {format(new Date(weatherAtLocation.current.time), "MMM d, h:mm a")}
+            {format(new Date(data.current.time), "MMM d, h:mm a")}
           </div>
         </div>
 
@@ -361,9 +364,9 @@ export function Weather({
               {isDay ? <SunIcon size={32} /> : <MoonIcon size={32} />}
             </div>
             <div className="font-light text-3xl text-white">
-              {n(weatherAtLocation.current.temperature_2m)}
+              {n(data.current.temperature_2m)}
               <span className="text-lg text-white/80">
-                {weatherAtLocation.current_units.temperature_2m}
+                {data.current_units.temperature_2m}
               </span>
             </div>
           </div>
@@ -421,11 +424,11 @@ export function Weather({
         <div className="mt-2 flex justify-between text-white/60 text-xs">
           <div>
             Sunrise:{" "}
-            {format(new Date(weatherAtLocation.daily.sunrise[0]), "h:mm a")}
+            {format(new Date(data.daily.sunrise[0]), "h:mm a")}
           </div>
           <div>
             Sunset:{" "}
-            {format(new Date(weatherAtLocation.daily.sunset[0]), "h:mm a")}
+            {format(new Date(data.daily.sunset[0]), "h:mm a")}
           </div>
         </div>
       </div>
