@@ -49,28 +49,28 @@ export default function LandingPage() {
 
           {/* Content Section */}
           <div className="space-y-10 text-left flex flex-col items-center pl-4 pr-12">
-            <div className="space-y-2">
+            <div>
               <h1 className="text-4xl md:text-5xl font-normal" style={{ fontFamily: 'var(--font-playfair)' }}>
                 What is Octoo?
               </h1>
-              <p className="text-base md:text-lg">
+              <p className="mt-8 text-base leading-6">
                 Octoo is a revolutionary, specialized search engine and comprehensive suite of
                 communication tools exclusively for interior design professionals to source and
                 purchase products from to the trade showrooms and manufacturers.
               </p>
-              <p className="text-base md:text-lg">
+              <p className="mt-8 text-base leading-6">
                 Streamlined searching across multiple showrooms and manufacturers enables design
                 professionals to abandon the current tedious search for products: showroom by showroom
                 or manufacturer by manufacturer. Octoo displays search results in one consolidated
                 website and includes products only from to the trade showrooms and manufacturers
                 including custom furnishings, case goods, and lighting.
               </p>
-              <p className="text-base md:text-lg">
+              <p className="mt-8 text-base leading-6">
                 Integrated tools provide seamless connectivity between showrooms and design
                 professionals, enable designers to retrieve up to date pricing and availability
                 information, and manage their projects all in one location.
               </p>
-              <p className="text-base md:text-lg">
+              <p className="mt-8 text-base leading-6">
                 Octoo is an all in one solution that increases sales, productivity and information
                 management.
               </p>
