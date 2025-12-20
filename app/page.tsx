@@ -78,6 +78,13 @@ export default function LandingPage() {
           </div>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="flex-none">
+        <div className="space-y-10 text-center flex flex-col items-center p-4">
+          <p className="font-mono text-sm">© OCTOO, {new Date().getFullYear()}</p>
+        </div>
+      </footer>
     </div>
   );
 }
