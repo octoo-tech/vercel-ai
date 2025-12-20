@@ -50,7 +50,7 @@ export default function LandingPage() {
           {/* Content Section */}
           <div className="space-y-10 text-left flex flex-col items-center pl-4 pr-12">
             <div className="space-y-2">
-              <h1 className="text-4xl md:text-5xl font-black" style={{ fontFamily: 'var(--font-playfair)' }}>
+              <h1 className="text-4xl md:text-5xl font-normal" style={{ fontFamily: 'var(--font-playfair)' }}>
                 What is Octoo?
               </h1>
               <p className="text-base md:text-lg">
