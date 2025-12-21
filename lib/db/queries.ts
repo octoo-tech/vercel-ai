@@ -614,7 +614,8 @@ export async function appendStreamChunk({
         lastChunkAt: new Date(),
       })
       .where(eq(stream.id, streamId));
-  } catch (_error) {
+  } catch (error) {
+    console.error("Failed to append stream chunk:", error);
     throw new ChatSDKError(
       "bad_request:database",
       "Failed to append stream chunk"

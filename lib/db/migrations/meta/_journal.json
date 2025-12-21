@@ -64,6 +64,13 @@
       "when": 1766057703421,
       "tag": "0008_handy_mantis",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1766275348003,
+      "tag": "0009_groovy_hex",
+      "breakpoints": true
     }
   ]
 }

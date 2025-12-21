@@ -23,12 +23,12 @@ export class PostgresStreamContext {
   ): Promise<ReadableStream<string>> {
     const streamState = await getStreamState({ streamId });
 
-    // If stream doesn't exist or is completed, create a new one
-    if (!streamState || streamState.status === "completed") {
+    // If stream doesn't exist, is completed, or has no chunks yet (new stream), create a new one
+    if (!streamState || streamState.status === "completed" || !streamState.chunks?.length) {
       return this.createNewStream(streamId, streamFactory);
     }
 
-    // Stream exists and is active - return buffered stream
+    // Stream exists and is active with chunks - return buffered stream for resume
     return this.createBufferedStream(streamId, streamState.chunks);
   }
 
