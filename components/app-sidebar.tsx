@@ -65,15 +65,17 @@ export function AppSidebar({ user }: { user: User | undefined }) {
           <SidebarMenu>
             <div className="flex flex-row items-center justify-between">
               <Link
-                className="flex flex-row items-center gap-3"
+                className="flex flex-row items-center"
                 href="/chat"
                 onClick={() => {
                   setOpenMobile(false);
                 }}
               >
-                <span className="cursor-pointer rounded-md px-2 font-semibold text-lg hover:bg-muted">
-                  Chatbot
-                </span>
+                <img
+                  src="/octo-o.png"
+                  alt="OCTOO"
+                  className="h-8 w-auto"
+                />
               </Link>
               <div className="flex flex-row gap-1">
                 {user && (
