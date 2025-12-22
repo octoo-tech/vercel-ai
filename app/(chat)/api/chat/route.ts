@@ -10,7 +10,6 @@ import {
 import { auth, type UserType } from "@/app/(auth)/auth";
 import type { VisibilityType } from "@/components/visibility-selector";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
-import type { ChatModel } from "@/lib/ai/models";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
 import { getLanguageModel } from "@/lib/ai/providers";
 import { createDocument } from "@/lib/ai/tools/create-document";
@@ -60,7 +59,7 @@ export async function POST(request: Request) {
     }: {
       id: string;
       message: ChatMessage;
-      selectedChatModel: ChatModel["id"];
+      selectedChatModel: string;
       selectedVisibilityType: VisibilityType;
     } = requestBody;
 
