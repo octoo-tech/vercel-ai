@@ -17,8 +17,8 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col h-screen">
       {/* Header */}
-      <header className="flex-none z-10">
-        <div className="flex items-center justify-between gap-4 bg-surface-100 p-4">
+      <header className="absolute top-0 left-0 right-0 z-10">
+        <div className="flex items-center justify-between gap-4 p-4">
           <div className="flex items-center">
             <img
               src="/octo-o.png"
@@ -45,7 +45,7 @@ export default function LandingPage() {
       <ContactForm open={contactOpen} onOpenChange={setContactOpen} />
 
       {/* Main Content */}
-      <main className="flex-auto overflow-x-hidden">
+      <main className="flex-auto overflow-x-hidden pt-16">
         <div className="grid grid-cols-1 xl:grid-cols-2 h-full mx-auto gap-4 md:gap-10 items-center px-4">
           {/* Logo Section */}
           <div className="text-center flex flex-col items-center">
